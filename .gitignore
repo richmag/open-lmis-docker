@@ -1,0 +1,14 @@
+*.log*
+.idea/
+*.iml
+*.ipr
+*.iws
+build/
+out/
+classes
+.gradle
+*.DS_Store
+*.class
+*.swp
+open-lmis/*
+open-lmis-manager/*
