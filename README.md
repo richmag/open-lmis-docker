@@ -10,38 +10,38 @@ Docker images for [OpenLMIS](http://openlmis.org)
 
 The design of this repository uses:
 
-- A base image built from `/docker/base`
-- OpenLMIS source code placed in `/open-lmis`
-- Optionally the OpenLMIS-Manager application placed in `/open-lmis-manger`
+- A base image built from `docker/base/`
+- OpenLMIS source code placed in `open-lmis/`
+- Optionally the OpenLMIS-Manager application placed in `open-lmis-manger/`
 
 
 # Directory Structure
 
-### `/docker`
+### `docker/`
 
 Contains setup and run scripts, configuration files and Dockerfile for base image.
 
-### `/docker/base`
+### `docker/base/`
 
 Dockerfile for base image **build this first**
 
-### `/docker/postgres`
+### `docker/postgres/`
 
 Configuration files for included postgres.
 
-### `/docker/tomcat`
+### `docker/tomcat/`
 
 Configuration files for included tomcat.
 
-### `/db`
+### `db/`
 
 (**Optional**) Contains database snapshot that will be used when first launching instance.
 
-### `/open-lmis`
+### `open-lmis/`
 
 OpenLMIS source code.  This is added by you.
 
-### `/open-lmis-manager`
+### `open-lmis-manager/`
 
 (**Optional**) OpenLMIS-Manager application source code.  This is added by you.
 
@@ -128,10 +128,12 @@ This will run OpenLMIS, expose tomcat and postgres ports, allow another containe
 
 `5432` is postgres which will allow all connections with a password.
 
+**it's not recommended to expose postgres to the public internet**
+
 `8080` is Tomcat which runs http to OpenLMIS.
 
 ### examples
 
 `docker run -d -p 80:8080 -p 5432:5432 joshzamor/openlmis`
 
-This will run OpenLMIS and map your host's ports 80 to 8080 (tomcat) and 5432 to 5432 (postgres).
+This will run OpenLMIS and map your host's ports 80 to 8080 (tomcat) and 5432 to 5432 (postgres).  *However don't expose postgres (5432) to the public internet in this fashion*.  Ensure your firewall blocks access to postgres and if you need a DB connection through the public internet, use an SSH tunnel.
