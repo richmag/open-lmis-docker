@@ -17,7 +17,7 @@ ADD docker/tomcat/tomcat.sh /etc/init.d/tomcat
 RUN chmod u+x /etc/init.d/tomcat && \
     useradd openlmis && \
     cd /home/openlmis && \
-    wget http://apache.osuosl.org/tomcat/tomcat-7/v7.0.55/bin/apache-tomcat-7.0.55.tar.gz && \
+    wget http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.55/bin/apache-tomcat-7.0.55.tar.gz && \
     tar -xvzf apache-tomcat-7.0.55.tar.gz && \
     rm apache-tomcat-7.0.55.tar.gz && \
     ln -s apache-tomcat-7.0.55 apache-tomcat && \
