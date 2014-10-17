@@ -1,7 +1,7 @@
 FROM joshzamor/openlmis_base
 MAINTAINER Josh Zamor <josh.zamor@villagereach.org>
 
-RUN yum install -y vim
+RUN yum install -y vim && yum clean all
 
 # configure postgres server
 ENV PGPASSWORD p@ssw0rd
@@ -36,15 +36,16 @@ RUN service postgresql start && \
     cd /home/openlmis && \
     wget https://services.gradle.org/distributions/gradle-1.12-bin.zip && \
     unzip gradle-1.12-bin.zip && \
-    chown -R openlmis:openlmis gradle-1.12 && \
     rm -f gradle-1.12-bin.zip && \
+    chown -R openlmis:openlmis gradle-1.12 && \
     cd open-lmis && \
     gradle clean setupdb seed build testseed && \
     gradle setupdb && \
     chown openlmis:openlmis modules/openlmis-web/build/libs/openlmis-web.war && \
     cd .. && \
     rm -Rf apache-tomcat/webapps/ROOT* && \
-    cp open-lmis/modules/openlmis-web/build/libs/openlmis-web.war apache-tomcat/webapps/ROOT.war
+    cp open-lmis/modules/openlmis-web/build/libs/openlmis-web.war apache-tomcat/webapps/ROOT.war && \
+    rm -Rf open-lmis
 
 # deploy OpenLMIS-Manager
 USER root
