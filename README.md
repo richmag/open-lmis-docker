@@ -92,6 +92,7 @@ OpenLMIS source code.  This is added by you.
 6. Build OpenLMIS container.
 
     ```shell
+    cd ..
     docker build -t "joshzamor/openlmis:latest" .
     ```
 
