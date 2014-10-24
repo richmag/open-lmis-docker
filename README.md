@@ -66,6 +66,7 @@ OpenLMIS source code.  This is added by you.
 
 
     ```shell
+    cd ../..
     git clone https://github.com/OpenLMIS/open-lmis.git
     ```
 
