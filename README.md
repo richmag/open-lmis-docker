@@ -62,7 +62,7 @@ OpenLMIS source code.  This is added by you.
     docker build -t "joshzamor/openlmis_base:latest" .
     ```
 
-2. Add the Open-LMIS source code.  This can either be copied into place or `git clone`.  Note that building this image builds the OpenLMIS source code.  This process requires Karma which requires Firefox to be available to run it's tests.  You have 2 options around this: solve the headless Karma problem (please) or merge in this [headless-build branch](https://github.com/joshzamor/open-lmis/tree/headless-build) which disables Karma for headless builds.
+2. Add the Open-LMIS source code.  This can either be copied into place or `git clone`.  Note that building this image builds the OpenLMIS source code.  This process requires Karma which requires Firefox to be available to run it's tests.  You have 2 options around this: solve the headless Karma problem (please) or merge in this [headless-build branch](cd ./tree/headless-build) which disables Karma for headless builds.
 
 
     ```shell
@@ -104,6 +104,22 @@ OpenLMIS source code.  This is added by you.
     ```
 Runs OpenLMIS with `your-name-here` and will automatically expose the Postgres and Tomcat ports.
 
+To determine the url to access the local instance of OpenLMIS from your browser you need to know the IP address of the local instance and the port number mapped to http.
+
+To determine the ip address, at a non-docker command prompt:
+    ```shell
+    boot2docker ip
+    ```
+
+To determine the port mapping at a command prompt within docker type:
+    ```shell
+    docker ps
+    ```
+
+From a browser on your local machine you would access OpenLMIS with a URL like:
+    ```shell
+    http://192.168.59.103:49154/
+    ```
 
 # Useful volumes:
 
