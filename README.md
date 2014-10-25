@@ -62,7 +62,7 @@ OpenLMIS source code.  This is added by you.
     docker build -t "joshzamor/openlmis_base:latest" .
     ```
 
-2. Add the Open-LMIS source code.  This can either be copied into place or `git clone`.  Note that building this image builds the OpenLMIS source code.  This process requires Karma which requires Firefox to be available to run it's tests.  You have 2 options around this: solve the headless Karma problem (please) or merge in this [headless-build branch](cd ./tree/headless-build) which disables Karma for headless builds.
+2. Add the Open-LMIS source code.  This can either be copied into place or `git clone`.  Note that building this image builds the OpenLMIS source code.  This process requires Karma which requires Firefox to be available to run it's tests.  You have 2 options around this: solve the headless Karma problem (please) or merge in this [headless-build branch](https://github.com/joshzamor/open-lmis/tree/headless-build) which disables Karma for headless builds.
 
 
     ```shell
