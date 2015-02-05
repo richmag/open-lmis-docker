@@ -39,7 +39,7 @@ RUN service postgresql start && \
     rm -f gradle-1.12-bin.zip && \
     chown -R openlmis:openlmis gradle-1.12 && \
     cd open-lmis && \
-    gradle clean setupdb seed build testseed && \
+    gradle clean setupdb setupExtensions seed build testseed && \
     gradle setupdb && \
     chown openlmis:openlmis modules/openlmis-web/build/libs/openlmis-web.war && \
     cd .. && \
