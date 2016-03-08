@@ -29,17 +29,17 @@ ADD docker/tomcat/configureTomcat.sh $TOMCAT_HOME/
 RUN chmod u+x $TOMCAT_HOME/configureTomcat.sh
 
 # build OpenLMIS
-ENV PATH /home/openlmis/gradle-1.12/bin:$PATH
-ENV JAVA_HOME /usr/lib/jvm/jre/
+ENV PATH /home/openlmis/gradle-2.3/bin:$PATH
 ADD open-lmis/ /home/openlmis/open-lmis/
 RUN service postgresql start && \
     cd /home/openlmis && \
     wget https://services.gradle.org/distributions/gradle-1.12-bin.zip && \
-    unzip gradle-1.12-bin.zip && \
-    rm -f gradle-1.12-bin.zip && \
-    chown -R openlmis:openlmis gradle-1.12 && \
+    wget https://services.gradle.org/distributions/gradle-2.3-bin.zip && \
+    unzip gradle-2.3-bin.zip && \
+    rm -f gradle-2.3-bin.zip && \
+    chown -R openlmis:openlmis gradle-2.3 && \
     cd open-lmis && \
-    gradle clean setupdb seed build testseed && \
+    gradle clean setupdb seed war IntegrationTests testseed && \
     gradle setupdb && \
     chown openlmis:openlmis modules/openlmis-web/build/libs/openlmis-web.war && \
     cd .. && \
