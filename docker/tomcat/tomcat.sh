@@ -23,7 +23,7 @@ CATALINA_HOME=/home/$RUN_AS_USER/apache-tomcat
 start() {
         echo "Starting Tomcat: "
         if [ "x$USER" != "x$RUN_AS_USER" ]; then
-          su - $RUN_AS_USER -c "export JAVA_OPTS='-XX:MaxPermSize=256M -DenvironmentName=local';$CATALINA_HOME/bin/startup.sh"
+          su $RUN_AS_USER -c "export JAVA_OPTS='-XX:MaxPermSize=256M -DenvironmentName=local';$CATALINA_HOME/bin/startup.sh"
         else
           $CATALINA_HOME/bin/startup.sh
         fi
@@ -32,7 +32,7 @@ start() {
 stop() {
         echo "Shutting down Tomcat: "
         if [ "x$USER" != "x$RUN_AS_USER" ]; then
-          su - $RUN_AS_USER -c "$CATALINA_HOME/bin/shutdown.sh"
+          su $RUN_AS_USER -c "$CATALINA_HOME/bin/shutdown.sh"
         else
           $CATALINA_HOME/bin/shutdown.sh
         fi
