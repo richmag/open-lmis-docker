@@ -33,14 +33,13 @@ ENV PATH /home/openlmis/gradle-2.3/bin:$PATH
 ADD open-lmis/ /home/openlmis/open-lmis/
 RUN service postgresql start && \
     cd /home/openlmis && \
-    wget https://services.gradle.org/distributions/gradle-1.12-bin.zip && \
     wget https://services.gradle.org/distributions/gradle-2.3-bin.zip && \
     unzip gradle-2.3-bin.zip && \
     rm -f gradle-2.3-bin.zip && \
     chown -R openlmis:openlmis gradle-2.3 && \
     cd open-lmis && \
     gradle clean setupdb seed war IntegrationTests testseed && \
-    gradle setupdb && \
+    chown -R openlmis:openlmis . && \
     chown openlmis:openlmis modules/openlmis-web/build/libs/openlmis-web.war && \
     cd .. && \
     rm -Rf apache-tomcat/webapps/ROOT* && \
@@ -70,4 +69,5 @@ EXPOSE 8080 5432
 USER root
 ADD docker/start.sh /sbin/start.sh
 RUN chmod u+x /sbin/start.sh
+WORKDIR /home/openlmis
 CMD ["/sbin/start.sh"]
