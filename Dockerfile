@@ -28,23 +28,13 @@ ADD docker/tomcat/tomcat-users.xml.template $TOMCAT_HOME/conf/
 ADD docker/tomcat/configureTomcat.sh $TOMCAT_HOME/
 RUN chmod u+x $TOMCAT_HOME/configureTomcat.sh
 
-# build OpenLMIS
-ENV PATH /home/openlmis/gradle-2.3/bin:$PATH
-ADD open-lmis/ /home/openlmis/open-lmis/
+# get OpenLMIS
 RUN service postgresql start && \
     cd /home/openlmis && \
-    wget https://services.gradle.org/distributions/gradle-2.3-bin.zip && \
-    unzip gradle-2.3-bin.zip && \
-    rm -f gradle-2.3-bin.zip && \
-    chown -R openlmis:openlmis gradle-2.3 && \
-    cd open-lmis && \
-    gradle clean setupdb seed war IntegrationTests testseed && \
-    chown -R openlmis:openlmis . && \
-    chown openlmis:openlmis modules/openlmis-web/build/libs/openlmis-web.war && \
-    cd .. && \
+    wget http://build.openlmis.org/job/OpenLMIS-dev-branch/lastSuccessfulBuild/artifact/modules/openlmis-web/build/libs/openlmis-web.war && \
+    chown openlmis:openlmis openlmis-web.war && \
     rm -Rf apache-tomcat/webapps/ROOT* && \
-    cp open-lmis/modules/openlmis-web/build/libs/openlmis-web.war apache-tomcat/webapps/ROOT.war && \
-    rm -Rf open-lmis
+    cp openlmis-web.war apache-tomcat/webapps/ROOT.war
 
 # deploy OpenLMIS-Manager
 USER root
@@ -60,6 +50,7 @@ USER root
 ADD db /open-lmis-db
 WORKDIR /open-lmis-db
 RUN service postgresql start && \
+    wget http://build.openlmis.org/job/OpenLMIS-dev-branch/lastSuccessfulBuild/artifact/modules/db/build/libs/open_lmis_demoseed.dump -O open_lmis.custom && \
     /bin/sh loadDb.sh
 
 # Ports for tomcat (8080) and postgresql (5432)
