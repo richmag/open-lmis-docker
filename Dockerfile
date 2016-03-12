@@ -1,5 +1,5 @@
-FROM joshzamor/openlmis_base
-MAINTAINER Josh Zamor <josh.zamor@villagereach.org>
+FROM chunky56/openlmis_base
+MAINTAINER Chongsun Ahn <chongsun.ahn@villagereach.org>
 
 RUN yum install -y vim && yum clean all
 
