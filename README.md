@@ -59,48 +59,26 @@ OpenLMIS source code.  This is added by you.
 
     ```shell
     cd docker/base
-    docker build -t "joshzamor/openlmis_base:latest" .
+    docker build -t "chunky56/openlmis_base:latest" .
     ```
 
-2. Add the Open-LMIS source code.  This can either be copied into place or `git clone`.  Note that building this image builds the OpenLMIS source code.  This process requires Karma which requires Firefox to be available to run it's tests.  You have 2 options around this: solve the headless Karma problem (please) or merge in this [headless-build branch](https://github.com/joshzamor/open-lmis/tree/headless-build) which disables Karma for headless builds.
-
-
-    ```shell
-    cd ../..
-    git clone https://github.com/OpenLMIS/open-lmis.git
-    ```
-
-3. Get OpenLMIS submodules.
-
-    ```shell
-    cd open-lmis
-    git submodule init
-    git submodule update
-    ```
-
-4.  (optional).  Add in an initial DB snapshot.  This adds in an initial database to use with OpenLMIS upon instance run.  If ommited the standard clean OpenLMIS database will be used.
-
-    ```shell
-    cp your-db-snapshot.dump db/open_lmis.custom
-    ```
-
-5. (optional).  Get Open-LMIS-Manager.  This simple manager application will add the URL `/open-lmis-manager` that allows anyone to reset the database.  It's recommended that step 4, providing an initial db snapshot, be done if Open-LMIS-Manager is deployed.
+2. (optional).  Get Open-LMIS-Manager.  This simple manager application will add the URL `/open-lmis-manager` that allows anyone to reset the database.  It's recommended that step 4, providing an initial db snapshot, be done if Open-LMIS-Manager is deployed.
 
     ```shell
     git clone https://github.com/joshzamor/open-lmis-manager.git
     ```
 
-6. Build OpenLMIS container.
+3. Build OpenLMIS container.
 
     ```shell
     cd ..
-    docker build -t "joshzamor/openlmis:latest" .
+    docker build -t "chunky56/openlmis:latest" .
     ```
 
-7. Run OpenLMIS container.
+4. Run OpenLMIS container.
 
     ```shell
-    docker run -d -P --name your-name-here joshzamor/openlmis
+    docker run -d -P --name your-name-here chunky56/openlmis
     ```
 Runs OpenLMIS with `your-name-here` and will automatically expose the Postgres and Tomcat ports.
 
@@ -141,7 +119,7 @@ contains `open_lmis.custom` which is the database snapshot the Open-LMIS-Manager
 ### examples
 
 
-`docker run -d -P -v /var/logs -v /home/openlmis -v /your/host/path/to/db-snapshot/:/open-lmis-db --name openlmis-demo joshzamor/openlmis`
+`docker run -d -P -v /var/logs -v /home/openlmis -v /your/host/path/to/db-snapshot/:/open-lmis-db --name openlmis-demo chunky56/openlmis`
 
 This will run OpenLMIS, expose tomcat and postgres ports, allow another container to someday mount `/var/logs` and `/home/openlmis` to debug issues, mounts the hosts database snapshot at `/your/host/path/to/db-snapshot/` to the containers `/open-lmis-db` (make sure the hosts db snapshot is named `open_lmis.custom`) and finally runs it with the name `openlmis-demo`.
 
@@ -155,6 +133,6 @@ This will run OpenLMIS, expose tomcat and postgres ports, allow another containe
 
 ### examples
 
-`docker run -d -p 80:8080 -p 5432:5432 joshzamor/openlmis`
+`docker run -d -p 80:8080 -p 5432:5432 chunky56/openlmis`
 
 This will run OpenLMIS and map your host's ports 80 to 8080 (tomcat) and 5432 to 5432 (postgres).  *However don't expose postgres (5432) to the public internet in this fashion*.  Ensure your firewall blocks access to postgres and if you need a DB connection through the public internet, use an SSH tunnel.
