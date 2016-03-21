@@ -31,7 +31,7 @@ RUN chmod u+x $TOMCAT_HOME/configureTomcat.sh
 # get OpenLMIS
 RUN service postgresql start && \
     cd /home/openlmis && \
-    wget http://build.openlmis.org/job/OpenLMIS-dev-branch/lastSuccessfulBuild/artifact/modules/openlmis-web/build/libs/openlmis-web.war && \
+    wget http://build.openlmis.org/job/OpenLMIS-Stable/lastSuccessfulBuild/artifact/modules/openlmis-web/build/libs/openlmis-web.war && \
     chown openlmis:openlmis openlmis-web.war && \
     rm -Rf apache-tomcat/webapps/ROOT* && \
     cp openlmis-web.war apache-tomcat/webapps/ROOT.war
@@ -50,7 +50,7 @@ USER root
 ADD db /open-lmis-db
 WORKDIR /open-lmis-db
 RUN service postgresql start && \
-    wget http://build.openlmis.org/job/OpenLMIS-dev-branch/lastSuccessfulBuild/artifact/modules/db/build/libs/open_lmis.dump -O open_lmis.custom && \
+    wget http://build.openlmis.org/job/OpenLMIS-Stable/lastSuccessfulBuild/artifact/modules/db/build/libs/open_lmis.dump -O open_lmis.custom && \
     /bin/sh loadDb.sh
 
 # Ports for tomcat (8080) and postgresql (5432)
