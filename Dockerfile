@@ -1,5 +1,5 @@
-FROM joshzamor/openlmis_base
-MAINTAINER Josh Zamor <josh.zamor@villagereach.org>
+FROM chunky56/openlmis_base
+MAINTAINER Chongsun Ahn <chongsun.ahn@villagereach.org>
 
 RUN yum install -y vim && yum clean all
 
@@ -38,7 +38,8 @@ RUN service postgresql start && \
     rm -f gradle-2.3-bin.zip && \
     chown -R openlmis:openlmis gradle-2.3 && \
     cd open-lmis && \
-    gradle clean setupdb seed war IntegrationTests testseed && \
+    gradle clean setupdb seed war IntegrationTests && \
+    gradle setupdb baseseed demoseed && \
     chown -R openlmis:openlmis . && \
     chown openlmis:openlmis modules/openlmis-web/build/libs/openlmis-web.war && \
     cd .. && \
@@ -60,6 +61,7 @@ USER root
 ADD db /open-lmis-db
 WORKDIR /open-lmis-db
 RUN service postgresql start && \
+    pg_dump -Fc open_lmis > open_lmis.custom && \
     /bin/sh loadDb.sh
 
 # Ports for tomcat (8080) and postgresql (5432)
