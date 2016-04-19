@@ -61,7 +61,8 @@ USER root
 ADD db /open-lmis-db
 WORKDIR /open-lmis-db
 RUN service postgresql start && \
-    pg_dump -Fc open_lmis > open_lmis.custom && \
+    sleep 5 && \
+    pg_dump -U postgres -Fc open_lmis > open_lmis.custom && \
     /bin/sh loadDb.sh
 
 # Ports for tomcat (8080) and postgresql (5432)
