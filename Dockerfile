@@ -49,6 +49,7 @@ RUN /bin/sh deployOpenLmisManager.sh && \
 USER root
 ADD db /open-lmis-db
 ADD db/open_lmis.custom /open-lmis-db/open_lmis.custom
+ADD db/open_lmis.custom /open-lmis-db/open_lmis.customRKM
 WORKDIR /open-lmis-db
 RUN service postgresql start && \
     /bin/sh loadDb.sh
