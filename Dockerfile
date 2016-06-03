@@ -31,7 +31,7 @@ RUN chmod u+x $TOMCAT_HOME/configureTomcat.sh
 # get OpenLMIS
 RUN service postgresql start && \
     cd /home/openlmis && \
-    wget http://build.openlmis.org/job/OpenLMIS-Stable/lastSuccessfulBuild/artifact/modules/openlmis-web/build/libs/openlmis-web.war && \
+    wget http://build.openlmis.org/job/OpenLMIS-dev-branch/lastSuccessfulBuild/artifact/modules/openlmis-web/build/libs/openlmis-web.war && \
     chown openlmis:openlmis openlmis-web.war && \
     rm -Rf apache-tomcat/webapps/ROOT* && \
     cp openlmis-web.war apache-tomcat/webapps/ROOT.war
