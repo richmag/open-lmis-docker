@@ -50,7 +50,7 @@ USER root
 ADD db /open-lmis-db
 WORKDIR /open-lmis-db
 RUN service postgresql start && \
-    wget http://build.openlmis.org/job/OpenLMIS-Stable/lastSuccessfulBuild/artifact/modules/db/build/libs/open_lmis_demoseed.dump -O open_lmis.custom && \
+    wget http://build.openlmis.org/job/OpenLMIS-dev-branch/lastSuccessfulBuild/artifact/modules/db/build/libs/open_lmis_demoseed.dump -O open_lmis.custom && \
     /bin/sh loadDb.sh
 
 # Ports for tomcat (8080) and postgresql (5432)
